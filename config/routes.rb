@@ -1,4 +1,4 @@
-Gemgub::Application.routes.draw do
+Gemhub::Application.routes.draw do
 
   root :to => redirect("/auth/github/")
 

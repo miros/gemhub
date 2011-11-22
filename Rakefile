@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-Gemgub::Application.load_tasks
+Gemhub::Application.load_tasks

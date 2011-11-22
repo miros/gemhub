@@ -1,3 +1,22 @@
 h4 You are watching:
 
-= render :collection => @repos, :partial => 'repo'
+ul#repos
+
+javascript:
+  socket = new WebSocket("ws://localhost:9000/watched_repos");
+
+  socket.onopen = function() {
+    socket.send("#{current_user.id}");
+  };
+
+  socket.onmessage = function(msg){
+    var repo = JSON.parse(msg.data);
+    var node = $("<li/>");
+    node.append($("<a/>").attr("href", repo.html_url).text(repo.name));
+    node.append($("<br/>"));
+    node.append($("<p/>").text(repo.description));
+
+    $("#repos").append(node);
+  };
+
+

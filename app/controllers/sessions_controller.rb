@@ -1,13 +1,14 @@
 class SessionsController < ApplicationController
 
   def create
-    session[:github_token] = user_info[:credentials][:token]
+    user = User.from_github(auth)
+    log_in(user)
     redirect_to watched_repos_path
   end
 
   private
 
-  def user_info
+  def auth
     request.env['omniauth.auth']
   end
 

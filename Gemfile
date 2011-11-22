@@ -1,6 +1,15 @@
 source 'http://rubygems.org'
 
 gem 'rails', '3.1.2'
+gem 'goliath', :git => "git://github.com/postrank-labs/goliath.git", :require => false
+
+gem 'mongoid'
+gem 'bson_ext'
+gem 'hashie'
+gem 'json'
+gem 'em-http-request'
+gem 'awesome_print', :require => 'ap'
+gem 'anaphora'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -10,15 +19,12 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
-gem 'jquery-rails'
-gem 'slim'
-
-gem 'omniauth'
-gem 'omniauth-github', :git => 'git://github.com/intridea/omniauth-github.git'
-gem 'nestful'
-
-gem 'awesome_print', :require => 'ap'
-gem 'anaphora'
+group :rails do
+  gem 'jquery-rails'
+  gem 'slim'
+  gem 'omniauth'
+  gem 'omniauth-github', :git => 'git://github.com/intridea/omniauth-github.git'
+end
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
