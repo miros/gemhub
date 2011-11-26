@@ -10,6 +10,7 @@ gem 'json'
 gem 'em-http-request'
 gem 'awesome_print', :require => 'ap'
 gem 'anaphora'
+gem 'nokogiri'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -24,6 +25,9 @@ group :rails do
   gem 'slim'
   gem 'omniauth'
   gem 'omniauth-github', :git => 'git://github.com/intridea/omniauth-github.git'
+  gem 'backbone-on-rails'
+  gem 'handlebars_assets'
+  gem 'haml_assets'
 end
 
 # To use ActiveModel has_secure_password

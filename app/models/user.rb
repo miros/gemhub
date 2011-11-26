@@ -1,3 +1,5 @@
+require 'benchmark'
+
 class User
 
   include Mongoid::Document
@@ -15,7 +17,8 @@ class User
   def each_watched_repo(&block)
     page = 0
     while (results = fetch_watched_repos(page += 1)).present? do
-      results.each(&block)
+      repos = results.map {|info| Repo.new(info)}
+      Repo.each_with_categories(repos, &block)
     end
   end
 
@@ -23,7 +26,7 @@ class User
     http = EM::HttpRequest.new('https://api.github.com/user/watched').get(:query => {
       access_token: token,
       page: page,
-      per_page: 25
+      per_page: 30
     })
     JSON.parse(http.response)
   end
