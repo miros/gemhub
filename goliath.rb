@@ -11,6 +11,8 @@ require 'em-synchrony/fiber_iterator'
 #TODO add autoload here
 require_relative "app/models/user"
 require_relative "app/models/repo"
+require_relative "app/models/repo_fetcher"
+require_relative "app/models/ruby_toolbox_gateway"
 
 Mongoid.load!(File.join(File.dirname(__FILE__), 'config/mongoid.yml'))
 
@@ -21,7 +23,7 @@ class WebsocketEndPoint < Goliath::WebSocket
     #TODO why we need synchrony here
     EM.synchrony {
       user = User.find(msg)
-      user.each_watched_repo {|repo| env.stream_send(repo.to_json)}
+      RepoFetcher.new(user).each {|repo| env.stream_send(repo.to_json)}
     }
   end
 

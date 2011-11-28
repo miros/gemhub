@@ -1,35 +1,24 @@
 class Repo
 
-  def self.each_with_categories(repos)
-    EM::Synchrony::FiberIterator.new(repos, 20).map do |repo|
-      repo.fetch_category
-      yield repo
-    end
-  end
+  include Mongoid::Document
 
-  attr_reader :attributes
+  field :html_url, type: String
+  field :name, type: String
+  field :category_name, type: String
+  field :description, type: String
 
-  def initialize(attrs)
-    @attributes = Hashie::Mash.new(attrs)
-  end
+  def self.from_github(info)
+    info = Hashie::Mash.new(info)
 
-  delegate :name, :to => :attributes
+    repo = find_or_initialize_by(name: info.name)
+    repo.html_url = info.html_url
+    repo.description = info.description
 
-  def fetch_category
-    http = EM::HttpRequest.new("https://www.ruby-toolbox.com/projects/#{name}").get
-    return if http.response_header.status != 200
-    attributes[:category_name] = parse_category(http.response)
+    repo
   end
 
   def to_json
     attributes.to_json
   end
-
-  private
-
-    def parse_category(html)
-      doc = Nokogiri::HTML(html)
-      doc.css("div.teaser-bar a").detect(&its[:href] =~ /categories/).try(:text)
-    end
 
 end

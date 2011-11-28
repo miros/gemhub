@@ -1,12 +1,12 @@
 h4 You are watching:
 
+p
+  a#reload-repos href="#" Reload
+
 ul#repos
 
 javascript:
   $(function(){
-    var fetcher = new RepoFetcher("#{current_user.id}");
-    fetcher.run();
+    var page = new ReposPage({user_id: "#{current_user.id}"});
+    page.reset(#{@repos.to_json.html_safe})
   });
-
-
-
