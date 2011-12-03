@@ -18,6 +18,8 @@ set :default_environment, {
   'PATH' => "/home/#{user}/.rbenv/shims:/home/#{user}/.rbenv/bin:$PATH"
 }
 
+set :bundle_flags, "--deployment --quiet --binstubs --shebang ruby-local-exec"
+
 #ssh_options[:compression] = false
 default_run_options[:pty] = true
 
