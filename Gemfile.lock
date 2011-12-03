@@ -55,7 +55,7 @@ GEM
     activesupport (3.1.2)
       multi_json (~> 1.0)
     addressable (2.2.6)
-    anaphora (0.1.1)
+    anaphora (0.1.2)
     arel (2.2.1)
     async-rack (0.5.1)
       rack (~> 1.1)
